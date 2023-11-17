@@ -49,9 +49,9 @@ except URLError as e:
 
 
 # take the json response and normalize it
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# output the normalized data
-streamlit.dataframe(fruityvice_normalized)
+# fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+# # output the normalized data
+# streamlit.dataframe(fruityvice_normalized)
 
 streamlit.stop()
 
