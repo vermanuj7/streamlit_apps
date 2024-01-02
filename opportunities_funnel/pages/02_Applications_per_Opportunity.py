@@ -1,19 +1,16 @@
+# from snowflake.snowpark.context import get_active_session
+# from snowflake.snowpark.functions import sum, col
+# import altair as alt
+# from snowflake.snowpark import Session
+# from pathlib import Path
+# import os
 import pandas as pd
-from snowflake.snowpark.context import get_active_session
-from snowflake.snowpark.functions import sum, col
-import altair as alt
 import streamlit as st
-from snowflake.snowpark import Session
-from pathlib import Path
-import os
 import s3fs
 import awswrangler as wr
 
 s3 = s3fs.S3FileSystem(key=st.secrets['credentials']['aws']['AWS_ACCESS_KEY_ID'],
         secret=st.secrets['credentials']['aws']['AWS_SECRET_ACCESS_KEY'])
-# data_dir = os.getenv("data_dir")
-# data_dir = Path(f"{data_dir}/portfolio-monitoring")
-# opps_data_dir = Path('~/nirvanatech/manthan/data/portfolio-monitoring')
 st.set_page_config(layout="wide")
 
 
