@@ -1,0 +1,25 @@
+name: streamlit_apps
+channels:
+  - https://repo.anaconda.com/pkgs/snowflake
+  - nodefaults
+dependencies:
+  - python=3.10
+  - numpy
+  - ipython
+  - jupyterlab
+  - fsspec
+  - s3fs
+  - openpyxl
+  - matplotlib
+  - pip
+  - pip:
+      - snowflake-connector-python[pandas]
+      - snowflake-snowpark-python
+      - snowflake-sqlalchemy
+      - python-dotenv
+      - metaflow
+      - awswrangler
+      - metabasepy
+      - boto3
+      - streamlit
+      - watchdog
