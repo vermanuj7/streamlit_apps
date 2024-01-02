@@ -6,17 +6,26 @@ import streamlit as st
 from snowflake.snowpark import Session
 from pathlib import Path
 import os
+import s3fs
+import awswrangler as wr
 
-data_dir = os.getenv("data_dir")
-data_dir = Path(f"{data_dir}/portfolio-monitoring")
-opps_data_dir = Path('~/nirvanatech/manthan/data/portfolio-monitoring')
+s3 = s3fs.S3FileSystem(key=st.secrets['credentials']['aws']['AWS_ACCESS_KEY_ID'],
+        secret=st.secrets['credentials']['aws']['AWS_SECRET_ACCESS_KEY'])
+# data_dir = os.getenv("data_dir")
+# data_dir = Path(f"{data_dir}/portfolio-monitoring")
+# opps_data_dir = Path('~/nirvanatech/manthan/data/portfolio-monitoring')
 st.set_page_config(layout="wide")
 
 
 @st.cache_data()
 def load_data():
-    df = pd.read_pickle(opps_data_dir / 'opps_funnel.pkl')
+    # df = pd.read_pickle(opps_data_dir / 'opps_funnel.pkl')
+    df = wr.s3.read_parquet('s3://nirvana-analytics-warehouse/opps-funnel/opps_funnel.parquet')
+    # df = pd.read_parquet(s3.open('s3://nirvana-analytics-warehouse/opps-monitoring/opps_funnel.parquet'))
     return df
+
+
+# Load and cache data
 
 
 tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
