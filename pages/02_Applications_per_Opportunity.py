@@ -8,16 +8,19 @@ import pandas as pd
 import streamlit as st
 import s3fs
 import awswrangler as wr
+import boto3
 
-s3 = s3fs.S3FileSystem(key=st.secrets['credentials']['aws']['AWS_ACCESS_KEY_ID'],
-        secret=st.secrets['credentials']['aws']['AWS_SECRET_ACCESS_KEY'])
+boto_session = boto3.Session(aws_access_key_id=st.secrets['credentials']['aws']['AWS_ACCESS_KEY_ID'],
+                             aws_secret_access_key=st.secrets['credentials']['aws']['AWS_SECRET_ACCESS_KEY'],
+                             region_name=st.secrets['credentials']['aws']['AWS_REGION'])
 st.set_page_config(layout="wide")
 
 
 @st.cache_data()
 def load_data():
     # df = pd.read_pickle(opps_data_dir / 'opps_funnel.pkl')
-    df = wr.s3.read_parquet('s3://nirvana-analytics-warehouse/opps-funnel/opps_funnel.parquet')
+    df = wr.s3.read_parquet('s3://nirvana-analytics-warehouse/opps-funnel/opps_funnel.parquet',
+                            boto3_session=boto_session)
     # df = pd.read_parquet(s3.open('s3://nirvana-analytics-warehouse/opps-monitoring/opps_funnel.parquet'))
     return df
 
